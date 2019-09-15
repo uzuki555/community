@@ -1,0 +1,15 @@
+
+body{
+    background-color: #efefef;
+}
+.main{
+    background-color: white;
+    margin: 30px;
+}
+.submitbutton{
+    float:right;
+    margin-bottom: 15px;
+}
+.submitdiv {
+    float: right;
+}
