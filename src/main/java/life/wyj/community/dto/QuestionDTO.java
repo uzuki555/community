@@ -1,11 +1,10 @@
-package life.wyj.community.model;
+package life.wyj.community.dto;
 
+import life.wyj.community.model.User;
 import lombok.Data;
-import org.apache.ibatis.type.Alias;
 
 @Data
-
-public class Question {
+public class QuestionDTO {
     private Integer id;
     private  String title;
     private String description;
@@ -16,4 +15,5 @@ public class Question {
     private Integer viewCount;
     private Integer likeCount;
     private Integer commentCount;
+    private User user;
 }
