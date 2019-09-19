@@ -66,7 +66,10 @@
                 </div>
                     <div class="row">
 
-                    <span class="alert alert-danger col-lg-9 col-md-12 col-sm-12 col-xs-12" th:text="${error}" th:if="${error}!=null" ></span>
+                    <div class=" col-lg-9 col-md-12 col-sm-12 col-xs-12" >
+
+                        <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${error}" th:if="${error}!=null" ></div>
+                    </div>
                         <div class="submitdiv col-lg-3 col-md-12 col-sm-12 col-xs-12">
                 <button type="submit" class="btn btn-success submitbutton">发布</button>
                         </div>
