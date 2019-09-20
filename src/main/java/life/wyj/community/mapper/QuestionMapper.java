@@ -23,7 +23,7 @@ public interface QuestionMapper {
             @Result(property = "commentCount",column = "comment_count"),
     })
     @Select("select * from question limit #{offset},#{size}")
-    List<Question> list(Integer offset, Integer size);
+    List<Question> list(@Param("offset") Integer offset, @Param("size") Integer size);
 
     @Select("select count(1) from question")
     Integer count();
