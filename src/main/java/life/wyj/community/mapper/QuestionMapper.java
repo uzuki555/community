@@ -1,5 +1,6 @@
 package life.wyj.community.mapper;
 
+import life.wyj.community.dto.QuestionDTO;
 import life.wyj.community.model.Question;
 import org.apache.ibatis.annotations.*;
 
@@ -31,4 +32,7 @@ public interface QuestionMapper {
     List<Question> listByCreator(@Param("userId")Integer userId, @Param("offset")Integer offset, @Param("size")Integer size);
     @Select("select count(1) from question where creator =#{userId}")
     Integer countByUserId(@Param("userId")Integer userId);
+
+    @Select("select * from question where id =#{id}")
+    Question findById(@Param("id")Integer id);
 }

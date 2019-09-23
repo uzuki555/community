@@ -48,7 +48,12 @@ public class AuthorizeController {
         if(githubUser != null){
             User user = new User();
             user.setToken(UUID.randomUUID().toString());
-            user.setName(githubUser.getName());
+            if(githubUser.getName().trim()==null&&githubUser.getName()==""){
+                user.setName("不愿意透露姓名的老司机");
+            }else {
+                user.setName(githubUser.getName());
+            }
+
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
