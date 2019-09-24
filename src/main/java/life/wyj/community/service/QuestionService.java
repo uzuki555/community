@@ -40,7 +40,12 @@ public class QuestionService {
         paginationDTO.setPagination(totalPage,page);
 
 
-        Integer offset = size*(page -1);
+        Integer offset =0;
+        if(offset>size){
+            offset= size*(page -1);
+        }else {
+            offset = 0;
+        }
         List<Question> questions = questionMapper.list(offset,size);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
@@ -77,7 +82,13 @@ public class QuestionService {
             page=totalPage;
         }
         paginationDTO.setPagination(totalPage,page);
-        Integer offset = size*(page -1);
+        Integer offset =0;
+        if(offset>size){
+            offset= size*(page -1);
+        }else {
+            offset = 0;
+        }
+
         List<Question> questions = questionMapper.listByCreator(userId,offset,size);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
