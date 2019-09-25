@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages = "life.wyj.community.mapper")
+@MapperScan("life.wyj.community.mapper")
 public class CommunityApplication {
 
     public static void main(String[] args) {

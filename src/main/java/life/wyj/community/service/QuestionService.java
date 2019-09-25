@@ -5,8 +5,10 @@ import life.wyj.community.dto.QuestionDTO;
 import life.wyj.community.mapper.QuestionMapper;
 import life.wyj.community.mapper.UserMapper;
 import life.wyj.community.model.Question;
+
 import life.wyj.community.model.QuestionExample;
 import life.wyj.community.model.User;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,7 +50,8 @@ public class QuestionService {
         }else {
             offset = 0;
         }
-        List<Question> questions = questionMapper.sel(offset,size);
+        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(new QuestionExample(),new RowBounds(offset,size));
+
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
 
@@ -67,7 +70,10 @@ public class QuestionService {
 
     public PaginationDTO listByCreator(Integer userId, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
-        Integer totalCount = questionMapper.countByUserId(userId);
+
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.createCriteria().andCreatorEqualTo(userId);
+        Integer totalCount = (int)questionMapper.countByExample(questionExample);
         Integer totalPage;
 
 
@@ -91,7 +97,9 @@ public class QuestionService {
             offset = 0;
         }
 
-        List<Question> questions = questionMapper.listByCreator(userId,offset,size);
+        QuestionExample questionExample1 = new QuestionExample();
+        questionExample1.createCriteria().andCreatorEqualTo(userId);
+        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(questionExample1,new RowBounds(offset,size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
 
@@ -109,7 +117,7 @@ public class QuestionService {
     }
 
     public QuestionDTO getById(Integer id) {
-        Question question = questionMapper.findById(id);
+        Question question = questionMapper.selectByPrimaryKey(id);
         QuestionDTO questionDTO = new QuestionDTO();
         User user = userMapper.selectByPrimaryKey(question.getCreator());
         questionDTO.setUser(user);
@@ -118,14 +126,16 @@ public class QuestionService {
     }
 
     public void createOrUpdate(Question question) {
-        Question dbQuestion = questionMapper.findById(question.getId());
+        Question dbQuestion = questionMapper.selectByPrimaryKey(question.getId());
         if(dbQuestion==null){
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
-            questionMapper.create(question);
+            questionMapper.insert(question);
         }else {
             question.setGmtModified(System.currentTimeMillis());
-            questionMapper.updateQuestion(question);
+            QuestionExample example = new QuestionExample();
+            example.createCriteria().andIdEqualTo(question.getId());
+            questionMapper.updateByExampleSelective(question, example);
         }
     }
 }

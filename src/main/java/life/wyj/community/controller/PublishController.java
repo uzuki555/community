@@ -1,7 +1,6 @@
 package life.wyj.community.controller;
 
 import life.wyj.community.dto.QuestionDTO;
-import life.wyj.community.mapper.QuestionMapper;
 import life.wyj.community.model.Question;
 import life.wyj.community.model.User;
 import life.wyj.community.service.QuestionService;
