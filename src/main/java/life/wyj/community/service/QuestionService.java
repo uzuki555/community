@@ -5,6 +5,7 @@ import life.wyj.community.dto.QuestionDTO;
 import life.wyj.community.mapper.QuestionMapper;
 import life.wyj.community.mapper.UserMapper;
 import life.wyj.community.model.Question;
+import life.wyj.community.model.QuestionExample;
 import life.wyj.community.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ public class QuestionService {
     private UserMapper userMapper;
     public PaginationDTO list(Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
-        Integer totalCount = questionMapper.count();
+        QuestionExample questionExample = new QuestionExample();
+        Integer totalCount =(int) questionMapper.countByExample(questionExample);
         Integer totalPage;
 
 
@@ -46,13 +48,13 @@ public class QuestionService {
         }else {
             offset = 0;
         }
-        List<Question> questions = questionMapper.list(offset,size);
+        List<Question> questions = questionMapper.sel(offset,size);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
 
 
         for(Question question : questions){
-            User user  = userMapper.findById(question.getCreator());
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);
             questionDTO.setUser(user);
@@ -95,7 +97,7 @@ public class QuestionService {
 
 
         for(Question question : questions){
-            User user  = userMapper.findById(question.getCreator());
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);
             questionDTO.setUser(user);
@@ -109,9 +111,21 @@ public class QuestionService {
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.findById(id);
         QuestionDTO questionDTO = new QuestionDTO();
-        User user  = userMapper.findById(question.getCreator());
+        User user = userMapper.selectByPrimaryKey(question.getCreator());
         questionDTO.setUser(user);
         BeanUtils.copyProperties(question,questionDTO);
         return questionDTO;
+    }
+
+    public void createOrUpdate(Question question) {
+        Question dbQuestion = questionMapper.findById(question.getId());
+        if(dbQuestion==null){
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.create(question);
+        }else {
+            question.setGmtModified(System.currentTimeMillis());
+            questionMapper.updateQuestion(question);
+        }
     }
 }

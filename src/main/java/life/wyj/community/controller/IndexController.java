@@ -1,7 +1,6 @@
 package life.wyj.community.controller;
 
 import life.wyj.community.dto.PaginationDTO;
-import life.wyj.community.mapper.UserMapper;
 import life.wyj.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

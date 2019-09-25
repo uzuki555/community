@@ -18,10 +18,14 @@
                 <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 发起</h2>
                 <hr>
                 <form action="/publish" method="post">
+
+
+
                 <div class="form-group">
                     <label for="title">问题标题（简单扼要）</label>
                     <input type="text" class="form-control" id="title" th:value="${title}" name="title" placeholder="问题标题__">
                 </div>
+                    <input type="hidden" th:value="${id}"  name ="id" />
                 <div class="form-group">
                         <label for="title">问题补充（必填，请参照右侧提示）</label>
                         <textarea name="description" id="description" cols="30" th:text="${description}" class="form-control" rows="10"></textarea>
@@ -37,6 +41,7 @@
                         <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${error}" th:if="${error}!=null" ></div>
                     </div>
                         <div class="submitdiv col-lg-3 col-md-12 col-sm-12 col-xs-12">
+
                 <button type="submit" class="btn btn-success submitbutton">发布</button>
                         </div>
                     </div>
