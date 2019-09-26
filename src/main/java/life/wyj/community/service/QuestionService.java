@@ -1,7 +1,10 @@
 package life.wyj.community.service;
 
+import life.wyj.community.exception.CustomizeErrorCode;
+import life.wyj.community.exception.CustomizeException;
 import life.wyj.community.dto.PaginationDTO;
 import life.wyj.community.dto.QuestionDTO;
+import life.wyj.community.mapper.QuestionExtMapper;
 import life.wyj.community.mapper.QuestionMapper;
 import life.wyj.community.mapper.UserMapper;
 import life.wyj.community.model.Question;
@@ -20,6 +23,8 @@ import java.util.List;
 public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
     @Autowired
     private UserMapper userMapper;
     public PaginationDTO list(Integer page, Integer size) {
@@ -118,6 +123,10 @@ public class QuestionService {
 
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+
+        if(question==null){
+            throw  new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         User user = userMapper.selectByPrimaryKey(question.getCreator());
         questionDTO.setUser(user);
@@ -135,7 +144,17 @@ public class QuestionService {
             question.setGmtModified(System.currentTimeMillis());
             QuestionExample example = new QuestionExample();
             example.createCriteria().andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(question, example);
+            int updated = questionMapper.updateByExampleSelective(question, example);
+            if(updated != 1){
+                throw  new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
+    }
+
+    public void incView(Integer id) {
+        Question updateQuestion = new Question();
+        updateQuestion.setId(id);
+        updateQuestion.setViewCount(1);
+        questionExtMapper.incView(updateQuestion);
     }
 }
