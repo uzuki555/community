@@ -1,5 +1,8 @@
 package life.wyj.community.advice;
 
+import com.alibaba.fastjson.JSON;
+import life.wyj.community.dto.ResultDto;
+import life.wyj.community.exception.CustomizeErrorCode;
 import life.wyj.community.exception.CustomizeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
@@ -8,20 +11,48 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class CustomizeEexceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    ModelAndView handle( Throwable e, Model model){
+    ModelAndView handle(Throwable e, Model model, HttpServletRequest request, HttpServletResponse response){
+        String contentType = request.getContentType();
+        if("application/json".equals(contentType)){
+            ResultDto resultDto = null;
+            if(e instanceof CustomizeException){
+                resultDto=  ResultDto.errorOf((CustomizeException) e);
+            }else {
+                resultDto=ResultDto.errorOf(CustomizeErrorCode.SYS_ERROR);
+            }
 
-        String messgae = "服务不可用，请稍后再试";
-        if(e instanceof CustomizeException){
-            messgae=e.getMessage();
+
+            try {
+                response.setContentType("application/json");
+                response.setStatus(200);
+                response.setCharacterEncoding("UTF-8");
+                PrintWriter  writer = response.getWriter();
+                writer.write(JSON.toJSONString(resultDto));
+                writer.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            return  null;
+        }else {
+
+            if(e instanceof CustomizeException){
+                model.addAttribute("message",e.getMessage());
+            }
+//else {
+//                model.addAttribute("message", "233错误");
+//            }
+//            return new ModelAndView("error");
+            return  null;
         }
 
-        model.addAttribute("message",messgae);
-        return new ModelAndView("error");
     }
 
     private HttpStatus getStatus(HttpServletRequest request) {

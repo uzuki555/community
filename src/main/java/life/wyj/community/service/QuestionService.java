@@ -73,7 +73,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public PaginationDTO listByCreator(Integer userId, Integer page, Integer size) {
+    public PaginationDTO listByCreator(Long userId, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
 
         QuestionExample questionExample = new QuestionExample();
@@ -121,7 +121,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public QuestionDTO getById(Integer id) {
+    public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
 
         if(question==null){
@@ -139,6 +139,9 @@ public class QuestionService {
         if(dbQuestion==null){
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setViewCount(0);
+            question.setCommentCount(0);
+            question.setLikeCount(0);
             questionMapper.insert(question);
         }else {
             question.setGmtModified(System.currentTimeMillis());
@@ -151,7 +154,7 @@ public class QuestionService {
         }
     }
 
-    public void incView(Integer id) {
+    public void incView(Long id) {
         Question updateQuestion = new Question();
         updateQuestion.setId(id);
         updateQuestion.setViewCount(1);

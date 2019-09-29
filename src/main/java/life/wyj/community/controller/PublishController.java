@@ -21,7 +21,7 @@ public class PublishController {
     public QuestionService questionService;
 
     @GetMapping("/publish/{id}")
-    public String publish(@PathVariable(name="id",required = false) Integer id,
+    public String publish(@PathVariable(name="id",required = false) Long id,
                           Model model){
         QuestionDTO questionDTO = questionService.getById(id);
         model.addAttribute("title",questionDTO.getTitle());
@@ -40,7 +40,7 @@ public class PublishController {
     public String doPushlish(@RequestParam("title") String title,
                              @RequestParam("description") String description,
                              @RequestParam("tag") String tag,
-                             @RequestParam(name="id",required = true) Integer id,
+                             @RequestParam(name="id",required = true) Long id,
                              HttpServletRequest request,
                              Model model){
         model.addAttribute("title",title);
@@ -70,9 +70,7 @@ public class PublishController {
         question.setDescription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
-        question.setViewCount(0);
-        question.setCommentCount(0);
-        question.setLikeCount(0);
+
 //        System.out.println(id);
         question.setId(id);
         questionService.createOrUpdate(question);
