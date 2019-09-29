@@ -25,10 +25,20 @@ body{
 .profile .section{
     margin-top: 15px;
 }
+.media-body{
+    padding-top: 10px;
+}
 .community-menu{
     font-size:13px;
     color: #999;
 }
 .jumbotron{
     margin:50px;
+}
+.comment{
+    margin: 10px 0;
+}
+.comment-btn{
+    float: right;
+    margin-bottom: 15px;
 }
