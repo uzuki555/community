@@ -11,6 +11,16 @@
 
 
 </head>
+<script lang="application/javascript">
+    $(document).ready(function (){
+        var closable = window.localStorage.getItem("closable");
+        if(closable=="true"){
+            window.close();
+            window.localStorage.removeItem("closable");
+        }
+    })
+
+</script>
 <body>
 <div th:insert="navigation :: nav"></div>
 <div class="container-fluid main">
