@@ -29,8 +29,11 @@ body{
     padding-top: 10px;
 }
 .community-menu{
+    display: block;
     font-size:13px;
     color: #999;
+
+    margin-bottom: 15px;
 }
 .jumbotron{
     margin:50px;
@@ -41,4 +44,60 @@ body{
 .comment-btn{
     float: right;
     margin-bottom: 15px;
+}
+.comments{
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+.comment-sp{
+    margin-top: 0;
+}
+.menu {
+    color: #999;
+    margin-top: 5px;
+}
+.menu .icon{
+    margin-right: 6px;
+    font-size: 15px;
+    cursor: pointer;
+
+}
+.menu .comment-icon{
+    font-size: 15px;
+    cursor: pointer;
+
+}
+
+.menu .icon:hover{
+    color: #499ef3;
+}
+.menu .comment-icon:hover{
+    color: #499ef3;
+}
+.question-title{
+    margin-top: 25px;
+}
+.menu .active{
+    color: #499ef3;
+}
+.sub-comments{
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 1px solid #eee;
+    padding-top: 15px;
+    margin-bottom: 15px;
+}
+.sub-comments .btn{
+    margin-top: 15px;
+}
+.question-tag{
+margin-right: 5px;
+}
+.question-related{
+    line-height: 20px;
+    font-size: 12px;
+    margin-left: 0;
+    list-style: none;
+    padding-left: 0;
 }

@@ -11,13 +11,18 @@ import life.wyj.community.model.Question;
 
 import life.wyj.community.model.QuestionExample;
 import life.wyj.community.model.User;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -30,6 +35,7 @@ public class QuestionService {
     public PaginationDTO list(Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
         QuestionExample questionExample = new QuestionExample();
+        questionExample.setOrderByClause("gmt_create desc");
         Integer totalCount =(int) questionMapper.countByExample(questionExample);
         Integer totalPage;
 
@@ -49,12 +55,8 @@ public class QuestionService {
         paginationDTO.setPagination(totalPage,page);
 
 
-        Integer offset =0;
-        if(offset>size){
-            offset= size*(page -1);
-        }else {
-            offset = 0;
-        }
+        Integer offset= size*(page -1);
+
         List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(new QuestionExample(),new RowBounds(offset,size));
 
         List<QuestionDTO> questionDTOList = new ArrayList<>();
@@ -78,6 +80,7 @@ public class QuestionService {
 
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria().andCreatorEqualTo(userId);
+        questionExample.setOrderByClause("gmt_create desc");
         Integer totalCount = (int)questionMapper.countByExample(questionExample);
         Integer totalPage;
 
@@ -95,12 +98,8 @@ public class QuestionService {
             page=totalPage;
         }
         paginationDTO.setPagination(totalPage,page);
-        Integer offset =0;
-        if(offset>size){
-            offset= size*(page -1);
-        }else {
-            offset = 0;
-        }
+        Integer offset= size*(page -1);
+
 
         QuestionExample questionExample1 = new QuestionExample();
         questionExample1.createCriteria().andCreatorEqualTo(userId);
@@ -159,5 +158,26 @@ public class QuestionService {
         updateQuestion.setId(id);
         updateQuestion.setViewCount(1);
         questionExtMapper.incView(updateQuestion);
+    }
+
+    public List<QuestionDTO> selectRelated(QuestionDTO questionDTO) {
+        if(StringUtils.isBlank(questionDTO.getTag())){
+            return new ArrayList<>();
+        }
+
+        String[] tags=StringUtils.split(questionDTO.getTag(),",");
+        String regexTag = Arrays.stream(tags).collect(Collectors.joining("|"));
+        Question question = new Question();
+        question.setId(questionDTO.getId());
+        question.setTag(regexTag);
+
+        List<Question> questions = questionExtMapper.selectRelated(question);
+        List<QuestionDTO> questionDTOS = questions.stream().map(q -> {
+            QuestionDTO dto = new QuestionDTO();
+            BeanUtils.copyProperties(q,dto);
+            return dto;
+        }).collect(Collectors.toList());
+        return questionDTOS;
+
     }
 }

@@ -1,0 +1,1 @@
+alter table comment add comment_count bigint DEFAULT 0;

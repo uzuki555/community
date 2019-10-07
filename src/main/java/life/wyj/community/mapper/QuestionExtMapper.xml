@@ -24,4 +24,10 @@
     comment_count = comment_count+#{record.commentCount,jdbcType=INTEGER}
     where id = #{record.id}
   </update>
+  <select id="selectRelated" resultMap="BaseResultMap" parameterType="life.wyj.community.model.Question">
+    select 
+    *
+    from question where id !=#{id} and tag regexp #{tag}
+
+  </select>
 </mapper>
