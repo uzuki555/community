@@ -28,6 +28,7 @@ public class PublishController {
         model.addAttribute("description",questionDTO.getDescription());
         model.addAttribute("tag",questionDTO.getTag());
         model.addAttribute("id",questionDTO.getId());
+        model.addAttribute("tags","");
 //        System.out.println(questionDTO);
         return "publish";
     }
