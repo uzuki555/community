@@ -34,32 +34,22 @@
                 </div>
                 <div class="form-group">
                         <label for="title">添加标签:</label>
-                        <input type="text" class="form-control" id="tag tag-text" th:value="${tag}" name="tag" placeholder="输入标签，以, 号分隔"
+                        <input type="text" class="form-control" id="tag-text" th:value="${tag}" name="tag" placeholder="输入标签，以, 号分隔"
                             autocomplete="off"
+                               onclick="showSelectTag()"
                         >
                     <div id = "select-tag" style="display:none" class="publish-tag-tab">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active">
-                                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">开发语言</a>
+                            <li role="presentation" th:each="selectCategory :${tags}" class="category-tab">
+                                <a th:href="${'#'+selectCategory.categoryName}" aria-controls="home" role="tab" data-toggle="tab" th:text="${selectCategory.categoryName}"></a>
                             </li>
-                            <li role="presentation" >
-                                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">平台框架</a>
-                            </li>
+
                         </ul>
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="home">
-                                <div class="label label-info question-tag">
-                                    <span class="glyphicon glyphicon-tags" onclick="selectTag('Spring')">Spring</span>
-                                </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="profile">
-                                <div class="label label-info question-tag">
-                                    <span class="glyphicon glyphicon-tags" onclick="selectTag('Spring Boot')">Spring Boot</span>
-                                </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane active" id="home">
-                                <div class="label label-info question-tag">
-                                    <span class="glyphicon glyphicon-tags" onclick="selectTag('Java')">Java</span>
+                            <div role="tabpanel" class="tab-pane" th:id="${selectCategory.categoryName}" th:each="selectCategory :${tags}">
+                                <div class="label label-info question-tag" th:each="selectTag :${selectCategory.tags}">
+                                    <span class="glyphicon glyphicon-tags" onclick="selectTag(this)"
+                                          th:text="${' '+selectTag}" th:data-tag="${selectTag}"></span>
                                 </div>
                             </div>
                         </div>
