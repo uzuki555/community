@@ -82,4 +82,20 @@ public class NotificationService {
 
         return paginationDTO;
     }
+
+
+    public Long unreadCount(Long id) {
+        NotificationExample notificationExample = new NotificationExample();
+        notificationExample.createCriteria()
+                .andReceiverEqualTo(id);
+        long count = notificationMapper.countByExample(notificationExample);
+        return count;
+    }
+
+    public NotificationDTO read(Long id, User user) {
+        Notification notification = notificationMapper.selectByPrimaryKey(id);
+        if(notification.getReceiver()!=user.getId()){
+
+        }
+    }
 }
