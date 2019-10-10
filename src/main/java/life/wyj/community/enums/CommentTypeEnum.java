@@ -23,4 +23,5 @@ public enum CommentTypeEnum {
         this.type = type;
     }
 
+
 }
