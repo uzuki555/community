@@ -3,6 +3,7 @@ package life.wyj.community.interceptor;
 import life.wyj.community.mapper.UserMapper;
 import life.wyj.community.model.User;
 import life.wyj.community.model.UserExample;
+import life.wyj.community.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -17,9 +18,12 @@ import java.util.List;
 public class SessionInterceptor implements HandlerInterceptor {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private NotificationService notificationService;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();
+
         if (cookies !=null && cookies.length!=0) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
@@ -28,7 +32,10 @@ public class SessionInterceptor implements HandlerInterceptor {
                     userExample.createCriteria().andTokenEqualTo(token);
                     List<User> userList= userMapper.selectByExample(userExample);
                     if(userList.size()!=0){
+
+                        Long unreadCount = notificationService.unreadCount(userList.get(0).getId());
                         request.getSession().setAttribute("user", userList.get(0));
+                        request.getSession().setAttribute("unreadCount",unreadCount);
                     }
                     break;
                 }

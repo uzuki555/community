@@ -1,6 +1,7 @@
 package life.wyj.community.controller;
 
 import life.wyj.community.dto.NotificationDTO;
+import life.wyj.community.enums.NotificationTypeEnum;
 import life.wyj.community.model.User;
 import life.wyj.community.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,11 @@ public class NotificationController {
             return "redirect:/";
         }
         NotificationDTO notificationDTO = notificationService.read(id,user);
+        if(NotificationTypeEnum.REPLY_COMMENT.getType()==notificationDTO.getType()
+                || NotificationTypeEnum.REPLY_QUESTION.getType()==notificationDTO.getType()){
+            return "redirect:/question/"+notificationDTO.getOuterid();
+        }else {
+            return "redirect:/";
+        }
     }
 }
