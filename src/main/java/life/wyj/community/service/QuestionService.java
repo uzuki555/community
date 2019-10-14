@@ -1,5 +1,6 @@
 package life.wyj.community.service;
 
+import life.wyj.community.dto.QuestionQueryDTO;
 import life.wyj.community.exception.CustomizeErrorCode;
 import life.wyj.community.exception.CustomizeException;
 import life.wyj.community.dto.PaginationDTO;
@@ -32,18 +33,26 @@ public class QuestionService {
     private QuestionExtMapper questionExtMapper;
     @Autowired
     private UserMapper userMapper;
-    public PaginationDTO list(Integer page, Integer size) {
+    public PaginationDTO list(String search ,Integer page, Integer size) {
+        if(StringUtils.isNotBlank(search)){
+            String[] tags=StringUtils.split(search," ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+
+        }
+
+
+//        Question question = new Question();
         PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
         QuestionExample questionExample = new QuestionExample();
         questionExample.setOrderByClause("gmt_create desc");
-        Integer totalCount =(int) questionMapper.countByExample(questionExample);
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+        Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
         Integer totalPage;
 
 
 
-        if(page<1){
-            page =1;
-        }
+
         if(totalCount % size ==0){
             totalPage = totalCount/size;
         }else {
@@ -52,12 +61,19 @@ public class QuestionService {
         if(page>totalPage){
             page=totalPage;
         }
+        if(page<1){
+            page =1;
+        }
+
         paginationDTO.setPagination(totalPage,page);
 
+            Integer offset = size * (page - 1);
 
-        Integer offset= size*(page -1);
 
-        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(new QuestionExample(),new RowBounds(offset,size));
+
+        questionQueryDTO.setSize(size);
+        questionQueryDTO.setPage(offset);
+        List<Question> questions = questionExtMapper.selectBySearch(questionQueryDTO);
 
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
@@ -86,16 +102,18 @@ public class QuestionService {
 
 
 
-        if(page<1){
-            page =1;
-        }
+
         if(totalCount % size ==0){
             totalPage = totalCount/size;
         }else {
             totalPage = totalCount/size + 1;
         }
+
         if(page>totalPage){
             page=totalPage;
+        }
+        if(page<1){
+            page =1;
         }
         paginationDTO.setPagination(totalPage,page);
         Integer offset= size*(page -1);

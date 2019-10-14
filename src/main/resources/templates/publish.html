@@ -33,7 +33,7 @@
                 </div>
                     <input type="hidden" th:value="${id}"  name ="id" />
                 <div class="form-group"  id="question-editor">
-                        <label for="title">问题补充（必填，请参照右侧提示）</label>
+                        <label for="description">问题补充（必填，请参照右侧提示）</label>
                         <textarea name="description" style="display: none;" id="description" cols="30" th:text="${description}" class="form-control" rows="10"></textarea>
                 </div>
                     <script type="text/javascript">
@@ -47,7 +47,7 @@
                                 placeholder:"请输入问题描述",
                                 imageUpload    : true,
                                 imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                                imageUploadURL : "/file/upload"
+                                imageUploadURL : "/file/upload",
                             });
                         });
                     </script>
