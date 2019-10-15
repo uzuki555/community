@@ -1,0 +1,38 @@
+2019-10-15 17:41:32.507  INFO 18668 --- [main] life.wyj.community.CommunityApplication  : Starting CommunityApplication on DESKTOP-V5795O3 with PID 18668 (E:\community\target\classes started by wyj in E:\community)
+2019-10-15 17:41:32.508  INFO 18668 --- [main] life.wyj.community.CommunityApplication  : No active profile set, falling back to default profiles: default
+2019-10-15 17:41:32.614  WARN 18668 --- [background-preinit] o.s.h.c.j.Jackson2ObjectMapperBuilder    : For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2019-10-15 17:41:33.525  INFO 18668 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 80 (http)
+2019-10-15 17:41:33.541  INFO 18668 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-10-15 17:41:33.541  INFO 18668 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.24]
+2019-10-15 17:41:33.614  INFO 18668 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-10-15 17:41:33.614  INFO 18668 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1071 ms
+2019-10-15 17:41:34.023  INFO 18668 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-15 17:41:34.137  INFO 18668 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-10-15 17:41:34.262  INFO 18668 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 80 (http) with context path ''
+2019-10-15 17:41:34.264  INFO 18668 --- [main] life.wyj.community.CommunityApplication  : Started CommunityApplication in 2.011 seconds (JVM running for 2.496)
+2019-10-15 17:41:59.066  INFO 18668 --- [http-nio-80-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-15 17:41:59.067  INFO 18668 --- [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-10-15 17:41:59.071  INFO 18668 --- [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2019-10-15 17:41:59.119  INFO 18668 --- [http-nio-80-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-10-15 17:41:59.249  INFO 18668 --- [http-nio-80-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-10-15 17:41:59.254 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.QuestionExtMapper.countBySearch  : ==>  Preparing: select count(*) from question 
+2019-10-15 17:41:59.265 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.QuestionExtMapper.countBySearch  : ==> Parameters: 
+2019-10-15 17:41:59.276 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.QuestionExtMapper.countBySearch  : <==      Total: 1
+2019-10-15 17:41:59.278 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.Q.selectBySearch                 : ==>  Preparing: select * from question order by gmt_create desc limit ?,? 
+2019-10-15 17:41:59.278 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.Q.selectBySearch                 : ==> Parameters: 0(Integer), 5(Integer)
+2019-10-15 17:41:59.281 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.Q.selectBySearch                 : <==      Total: 5
+2019-10-15 17:41:59.281 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, bio, avatar_url from user where ID = ? 
+2019-10-15 17:41:59.281 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : ==> Parameters: 1(Long)
+2019-10-15 17:41:59.282 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : <==      Total: 1
+2019-10-15 17:41:59.285 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, bio, avatar_url from user where ID = ? 
+2019-10-15 17:41:59.285 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : ==> Parameters: 1(Long)
+2019-10-15 17:41:59.286 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : <==      Total: 1
+2019-10-15 17:41:59.286 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, bio, avatar_url from user where ID = ? 
+2019-10-15 17:41:59.286 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : ==> Parameters: 1(Long)
+2019-10-15 17:41:59.287 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : <==      Total: 1
+2019-10-15 17:41:59.287 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, bio, avatar_url from user where ID = ? 
+2019-10-15 17:41:59.287 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : ==> Parameters: 1(Long)
+2019-10-15 17:41:59.288 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : <==      Total: 1
+2019-10-15 17:41:59.288 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, bio, avatar_url from user where ID = ? 
+2019-10-15 17:41:59.288 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : ==> Parameters: 1(Long)
+2019-10-15 17:41:59.289 DEBUG 18668 --- [http-nio-80-exec-1] l.w.c.m.UserMapper.selectByPrimaryKey    : <==      Total: 1
