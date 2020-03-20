@@ -10,7 +10,7 @@ public enum CustomizeErrorCode implements  ICustomizeErrorCode {
     CONTENT_IS_EMPTY("输入内容不能为空",2007),
     READ_NOTIFICATION_FAIL("无法读取别人通知",2008),
     NOTIFICATION_NOT_FOUND("通知不存在或找不到",2009),
-
+    LOGIN_ERROR("密码或用户名错误",2010),
     ;
 
     public String getMessage(){

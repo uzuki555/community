@@ -2,13 +2,11 @@ package life.wyj.community.service;
 
 import life.wyj.community.dto.NotificationDTO;
 import life.wyj.community.dto.PaginationDTO;
-import life.wyj.community.dto.QuestionDTO;
 import life.wyj.community.enums.NotificationStatusEnum;
 import life.wyj.community.enums.NotificationTypeEnum;
 import life.wyj.community.exception.CustomizeErrorCode;
 import life.wyj.community.exception.CustomizeException;
 import life.wyj.community.mapper.NotificationMapper;
-import life.wyj.community.mapper.UserMapper;
 import life.wyj.community.model.*;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
@@ -16,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class NotificationService {

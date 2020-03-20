@@ -3,7 +3,6 @@ package life.wyj.community.controller;
 import life.wyj.community.dto.CommentDTO;
 import life.wyj.community.dto.QuestionDTO;
 import life.wyj.community.enums.CommentTypeEnum;
-import life.wyj.community.model.Question;
 import life.wyj.community.service.CommentService;
 import life.wyj.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;

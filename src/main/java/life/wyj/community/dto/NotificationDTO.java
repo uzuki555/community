@@ -1,6 +1,5 @@
 package life.wyj.community.dto;
 
-import life.wyj.community.model.User;
 import lombok.Data;
 
 @Data

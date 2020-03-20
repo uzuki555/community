@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--<title>Signin Template for Bootstrap</title>-->
+
+    <!--&lt;!&ndash; Bootstrap core CSS &ndash;&gt;-->
+    <!--<link href="../../dist/css/bootstrap.min.css" rel="stylesheet">-->
+
+    <!--&lt;!&ndash; IE10 viewport hack for Surface/desktop Windows 8 bug &ndash;&gt;-->
+    <!--<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
+
+    <!--&lt;!&ndash; Custom styles for this template &ndash;&gt;-->
+    <!--<link href="signin.css" rel="stylesheet">-->
+
+    <!--&lt;!&ndash; Just for debugging purposes. Don't actually copy these 2 lines! &ndash;&gt;-->
+    <!--&lt;!&ndash;[if lt IE 9]><![endif]&ndash;&gt;-->
+    <!--<script src="../../assets/js/ie-emulation-modes-warning.js"></script>-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <script src="/js/jquery-3.4.1.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/community.js" type="application/javascript"></script>
+  </head>
+
+  <body>
+  <div th:insert="navigation :: nav"></div>
+    <div class="container">
+      <form class="form-signin" action="/register" method="post" >
+        <h2 class="form-signin-heading">请注册</h2>
+        <label for="username" class="sr-only">用户名账号</label>
+        <input type="username" id="username" name="username" class="form-control" placeholder="请输入用户名" required autofocus>
+        <label for="password" class="sr-only">用户名密码</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码" required>
+        <!--<div class="checkbox">-->
+          <!--<label>-->
+            <!--<input type="checkbox" value="remember-me"> 记住密码-->
+          <!--</label>-->
+        <!--</div>-->
+        <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${error}" th:if="${error}!=null" ></div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" >注册</button>
+      </form>
+      <div class="chooseRegisterOrLoginByGitHub">
+        <button id="githubLogin" class="githubLogin glyphicon glyphicon-log-in btn btn-md btn-primary btn-block"  onclick="githubLogin()">使用github登录</button>
+        <script type="text/javascript">
+          function githubLogin() {
+            window.open("https://github.com/login/oauth/authorize?client_id=5668fad92773b48b128c&redirect_uri=http://localhost/callback&scope=user&state=1");
+          }
+        </script>
+      <a  href="/toLoginAndRegisterPage" class="register">已有帐号？立即登录</a>
+      </div>
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+  </body>
+  <div th:insert="footer :: foot"></div>
+</html>

@@ -6,10 +6,10 @@ import life.wyj.community.exception.CustomizeException;
 import life.wyj.community.dto.PaginationDTO;
 import life.wyj.community.dto.QuestionDTO;
 import life.wyj.community.mapper.QuestionExtMapper;
+
 import life.wyj.community.mapper.QuestionMapper;
 import life.wyj.community.mapper.UserMapper;
 import life.wyj.community.model.Question;
-
 import life.wyj.community.model.QuestionExample;
 import life.wyj.community.model.User;
 import org.apache.commons.lang3.StringUtils;
@@ -18,11 +18,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 @Service

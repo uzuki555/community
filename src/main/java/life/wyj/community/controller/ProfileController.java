@@ -1,7 +1,6 @@
 package life.wyj.community.controller;
 
 import life.wyj.community.dto.PaginationDTO;
-import life.wyj.community.model.Notification;
 import life.wyj.community.model.User;
 import life.wyj.community.service.NotificationService;
 import life.wyj.community.service.QuestionService;
